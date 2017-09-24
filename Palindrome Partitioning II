@@ -1,0 +1,33 @@
+class Solution{
+
+public:
+    int cutnum(string s)
+    {
+        const int n = s.size();
+        vector<vector<bool>> isPalin(n,vector<bool>(n,false));
+        int cutnum[n];
+
+        for(int i=0; i<n; ++i)//从左向右遍历
+        {
+            cutnum[i] = i;//以i为结尾的字符串回文分区切割数
+
+            for(int j =i; j>=0; --j)//从下标i开始往左遍历
+            {
+                if(s[i]==s[j] && (i-j<2 || isPalin[i-1][j+1]))
+                {
+                    isPalin[i][j]=true;
+                    if(j<1)
+                    {
+                        cutnum[i]=0;
+                    }else if(cutnum[i] > cutnum[j-1]+1)
+                    {
+                        cutnum[i]=cutnum[j-1]+1;
+                    }                  
+                }
+            }
+        }
+
+        return cutnum[n-1];
+
+    }
+};
