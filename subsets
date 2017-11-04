@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+
+        //recursion
+        int step=0;
+        vector<vector<int>> res;
+        vector<int> path;
+
+        dfs(nums, path, 0, res);
+        return res;
+    }
+
+private:
+    void dfs(vector<int>& num, vector<int>& path, int step, vector<vector<int>>& result)
+    {
+        if(step==num.size())
+        {
+            result.push_back(path);
+            return;
+        }
+
+        dfs(num, path, step+1, result);
+        path.push_back(num[step]);
+        dfs(num, path, step+1, result);
+        path.pop_back();//delete end elem
+    }
+};
