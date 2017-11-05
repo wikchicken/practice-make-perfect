@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> result;
+        vector<int> path;
+
+        dfs(n, k, 1, path, result);
+        return result;
+    }
+
+private:
+    void dfs(int max_num, int k, int start_num, vector<int> &path, vector<vector<int>> &res)
+    {
+        if(k==path.size())
+        {
+            res.push_back(path);
+            return;
+        }
+
+        for(int i=start_num; i<=max_num; ++i)
+        {
+            path.push_back(i);
+            dfs(max_num, k, i+1, path, res);
+            path.pop_back();
+        }
+    }
+};
