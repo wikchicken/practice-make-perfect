@@ -1,0 +1,67 @@
+class Solution {
+public:
+    void solve(vector<vector<char>>& board) {
+        
+        if(board.size()==0)
+            return;
+        
+       int M=board.size();
+         int N=board[0].size();
+        
+        
+        for(int i=0; i<M; ++i)
+        {
+            for(int j=0; j<N; ++j)
+            {
+                if(i==0 || i==M-1 || j==0 || j==N-1)
+                {
+                    bfs(board, i, j);
+                }
+            }
+            
+        }
+        for(int i=0; i<M; ++i)
+        {
+            for(int j=0; j<N; ++j)
+            {
+                if(board[i][j] == '#')
+                    board[i][j] = 'O';
+                else
+                    board[i][j] = 'X';
+            }
+            
+        }
+        
+    }
+public:
+    void bfs(vector<vector<char>>& board, int row, int col)
+    {
+        if(board[row][col] != 'O') return;
+
+        queue<int> node;
+        node.push(row);
+        node.push(col);//code=row*board[0].size() + col;node.push(code)
+
+        while(!node.empty())
+        {
+            int i,j;
+            i=node.front();
+            node.pop();
+            j=node.front();          
+            node.pop();//注意队列的操作顺序！ 
+            
+            if(i<0 || i>=board.size() || j<0 || j>=board[0].size())
+                continue;
+                
+            if(board[i][j] != 'O')
+               continue; 
+                
+            board[i][j] = '#';
+            node.push(i-1);node.push(j);         
+            node.push(i+1);node.push(j);
+            node.push(i);node.push(j-1);
+            node.push(i);node.push(j+1);
+        }
+
+    }
+};
