@@ -1,0 +1,54 @@
+//recursive 
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<int> pos(n,0);
+        vector<vector<string>> result;
+        dfs(n, 0, pos, result);
+        return result;
+    }
+
+    void dfs(int n, int start_row, vector<int> &path, vector<vector<string>> &res)
+    {
+        if(start_row == n)
+        {
+            //output
+            vector<string> tmp;
+            for(int i=0; i<n; ++i)
+            {            
+                string s;
+                for(int j=0; j<n; ++j)
+                {
+                    if(path[i]==j)
+                        s +='Q';
+                    else
+                        s += '.';
+                }
+                tmp.push_back(s);
+            }
+            res.push_back(tmp);
+            return;   
+        }
+
+        for(int i=0; i<n; ++i)
+        {
+            path[start_row]=i;
+            if(checkqueue(start_row, path)) //注意入参含义
+            {              
+                dfs(n, start_row+1, path, res);
+            }
+
+        }
+
+    }
+
+    bool checkqueue(int row , vector<int> path)
+    {
+        for(int i=0; i<row; ++i)
+        {
+            if(path[i] == path[row] || (abs(path[i]-path[row]) == row-i))
+                return false;
+        }
+        return true;
+    }
+};
