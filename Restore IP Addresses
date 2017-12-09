@@ -1,0 +1,44 @@
+class Solution {
+public:
+ vector<string> restoreIpAddresses(string s) {
+        string ip;
+        vector<string> res;
+        dfs(s, 0, 0, ip, res);
+        return res;
+    }
+
+    void dfs(string s, int start, int step, string path, vector<string> &result)
+    {
+        if(step == 4 && start == s.size())
+        {
+            path.resize(path.size()-1);
+            result.push_back(path);//注意去掉最后的点分符号
+            return;
+        }
+
+        //prune
+        if(s.size()-start > (4-step)*3) return;
+        if(s.size()-start < 4 - step) return;//no stupid mistake!!
+
+        for(int i=start; i<start+3 && i<s.size(); ++i)
+        {
+            string str = s.substr(start, i-start+1);
+            if(checkvalid(str))
+            {
+                dfs(s, i+1, step+1, path+str+'.', result);
+            }       
+        }
+    }
+
+    bool checkvalid(string s)
+    {
+        int num = stoi(s);
+
+        if(s.size()==0 || s.size()>3)
+            return false;
+        if(s[0] == '0' && s.size()>1)
+            return false;
+        if(num >=0 && num <=255) return true;//
+        return false;
+    }
+};
