@@ -1,8 +1,6 @@
 # practice-make-perfect
-mark for leetcode
+mark for first leetcode
 
 code details determine algorithm difference !
 
 no stupid mistake!!!
-
-first call
