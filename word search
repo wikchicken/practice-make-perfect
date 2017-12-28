@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(dfs(board, 0, i, j, word))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    bool dfs(vector<vector<char>>& board, int index, int row, int col, string word)
+    {
+        bool ret;
+
+        if (index == word.size())
+            return true;
+        if (row <0 || row >=board.size() || col <0 || col >=board[0].size() )
+            return false;
+        
+        if (board[row][col] == word[index])
+        {
+            char tmp=board[row][col];
+            board[row][col] = '#';
+            ret = (dfs(board, index+1, row+1, col, word)
+                    || dfs(board, index+1, row-1, col, word)
+                    ||dfs(board, index+1, row, col+1, word)
+                    ||dfs(board, index+1, row, col-1, word));
+            board[row][col] = tmp;
+            return ret;
+        }
+        return false;
+    }
+};
