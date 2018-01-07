@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int glb = 0;
+        int last = 0;
+        int step=0;
+        
+        if (nums.size() ==1) return 0;
+        
+        for(int i=0; i<nums.size(); ++i)
+        {
+            if (i>last)//只有超过last的下标才需要增加一步
+            {
+                step++; 
+                last = glb;
+            }       
+
+            glb = max(nums[i] + i, glb);
+        }
+        
+        return step;
+    }
+};
