@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int glb = 0;
+        int local = 0;
+
+        for(int i=0; i<nums.size()&& i <= glb; ++i)//i<= glb剪枝
+        {
+            if(glb >= nums.size()-1)
+            {
+                return true;
+            }
+            local = nums[i] + i;
+
+            glb = max(local, glb);
+        }
+        return false;
+    }
+};
